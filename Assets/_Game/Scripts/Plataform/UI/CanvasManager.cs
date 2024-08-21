@@ -6,13 +6,19 @@ using Ibit.Plataform.Data;
 using Ibit.Plataform.Manager.Score;
 using UnityEngine;
 using UnityEngine.UI;
+using Ibit.Plataform.Manager.Spawn;
+using Ibit.Plataform.Manager.Stage;
 
 namespace Ibit.Plataform.UI
 {
     public class CanvasManager : MonoBehaviour
     {
-        [SerializeField] private Text _stageLevel;
+        [SerializeField] private StageDb stageDb; // DeepDDA - Lista de Stages
+        [SerializeField] private Text _objCurrent;
+        [SerializeField] private Spawner spwn;
+        [SerializeField] private Text _pacientSection;
         [SerializeField] private Text _stagePhase;
+        [SerializeField] private Text _stageLevel;
         [SerializeField] private GameObject _pauseMenu;
         // [SerializeField] private GameObject _pauseMenuParameters;
         [SerializeField] private GameObject _helpPanel;
@@ -23,12 +29,25 @@ namespace Ibit.Plataform.UI
 
         public Parameters CurrentParameters;
 
+        private void Update()
+        {
+            float obj = StageModel.Loaded.Loops * 10;
+            float objCurrent = spwn.TargetsSucceeded + spwn.ObstaclesSucceeded;
+            _objCurrent.text = $"{(objCurrent.ToString()):####}/{(obj.ToString()):####}";
+        }
         private void OnEnable()
         {
-            _stageLevel.text = StageModel.Loaded.Level.ToString();
+            float session = Pacient.Loaded.PlaySessionsDone + 1;
+            _pacientSection.text = session.ToString(); 
             _stagePhase.text = StageModel.Loaded.Phase.ToString();
-
+            _stageLevel.text = StageModel.Loaded.Level.ToString();
+            // DeepDDA: refatorar
             CurrentParameters = ParametersDb.parameters;
+        }
+        // DeepDDA: refatorar
+        public string StageLevel {
+            //get { return _stageLevel; }
+            set { _stageLevel.text = value; }
         }
 
         public void PauseGame()
@@ -78,7 +97,7 @@ namespace Ibit.Plataform.UI
             _pauseMenu.SetActive(false);
             _parametersPanel.SetActive(false);
             _securityPanel1.SetActive(false);
-            // _securityPanel2.SetActive(false);
+            _securityPanel2.SetActive(false);
             GameManager.UnPauseGame();
         }
 
@@ -255,8 +274,33 @@ namespace Ibit.Plataform.UI
 
         public void SetNextStage()
         {
-            StageModel.Loaded = StageDb.Instance.GetStage(
-                StageModel.Loaded.Id + 1 > StageDb.Instance.StageList.Max(x => x.Id) ? 1 : StageModel.Loaded.Id + 1);
+            //DeepDDA: Novo código para atender modificações para Stages
+            if (StageModel.Loaded == null)
+            {
+                Debug.LogError("currentStageData não está definido.");
+                return;
+            }
+
+            int nextStageId = StageModel.Loaded.Id + 1;
+            if (nextStageId > stageDb.GetMaxStageId())
+            {
+                nextStageId = 1; // Retorna ao primeiro estágio se exceder o máximo
+            }
+
+            StageModel.Loaded = stageDb.GetStageById(nextStageId);
+
+            if (StageModel.Loaded != null)
+            {
+                // Atualiza a lógica do jogo com base nos dados do novo estágio
+                Debug.Log($"Próximo estágio/fase/sessão: {StageModel.Loaded.Phase}");
+            }
+            else
+            {
+                Debug.LogError($"Estágio com ID {nextStageId} não encontrado.");
+            }
+            
+            // StageModel.Loaded = StageDb.Instance.GetStage(
+            //     StageModel.Loaded.Id + 1 > StageDb.Instance.StageList.Max(x => x.Id) ? 1 : StageModel.Loaded.Id + 1);
         }
     }
 }

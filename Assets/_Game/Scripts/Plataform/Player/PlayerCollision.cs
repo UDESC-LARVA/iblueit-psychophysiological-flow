@@ -32,24 +32,24 @@ namespace Ibit.Plataform
             if (hit.CompareTag("WaterTarget") || hit.CompareTag("AirTarget"))
             {
                 SoundManager.Instance.PlaySound("TargetGet");
-
-                if (mlGameAgent)
-                    mlGameAgent.RewardPlayer(+0.5f, true);
+                // DeepDDA
+                // if (DeepDDAAgent)
+                //     DeepDDAAgent.RewardPlayer(+0.5f, true);
             }
             else if (hit.CompareTag("WaterObstacle") || hit.CompareTag("AirObstacle"))
             {
                 TakeDamage();
                 SoundManager.Instance.PlaySound("PlayerDamage");
-
-                if (mlGameAgent)
-                    mlGameAgent.RewardPlayer(-1.0f, false);
+                // DeepDDA
+                // if (DeepDDAAgent)
+                //     DeepDDAAgent.RewardPlayer(-1.0f, false);
             }
             else if (hit.CompareTag("RelaxObject"))
             {
                 SoundManager.Instance.PlaySound("BonusTargetGet", true);
-
-                if (mlGameAgent)
-                    mlGameAgent.RewardPlayer(+1.0f, true);
+                // DeepDDA
+                // if (DeepDDAAgent)
+                //     DeepDDAAgent.RewardPlayer(+1.0f, true);
             }
         }
 

@@ -22,15 +22,9 @@ namespace Ibit.Plataform
 
         private void Update()
         {
-            /* RENATO:
-             * ToDo - A bug occurs when you press the GUI pause button and then unpause with space/esc.
+            /* ToDo - A bug occurs when you press the GUI pause button and then unpause with space/esc.
              * The pause function on the space/esc keeps calling pause() and unpause() at the same time.
              * Maybe it can be solved by switching all GameManager.GameIsPaused references to pause events in GameManager. */
-
-            
-
-
-
 
             // ESC - SPACE
             if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Space))
@@ -68,7 +62,7 @@ namespace Ibit.Plataform
             {
                 ChangeMusic();
             }
-
+            /* Foi comentado porque estes fatores passam a serem ajustados pelo DDA
             // +
             if (Input.GetKeyDown(KeyCode.Plus) || Input.GetKeyDown(KeyCode.KeypadPlus))
             {
@@ -92,6 +86,7 @@ namespace Ibit.Plataform
             {
                 DecreaseSpeedFactor();
             }
+            */
         }
 
         private void ShowHelp()

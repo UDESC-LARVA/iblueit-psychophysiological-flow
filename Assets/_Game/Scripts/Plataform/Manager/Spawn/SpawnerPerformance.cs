@@ -1,5 +1,8 @@
 ﻿using System;
 using Ibit.Plataform.Data;
+using Ibit.Plataform.Manager.Stage;
+using Ibit.Core.Database;
+using Ibit.Core.Game;
 using NaughtyAttributes;
 using UnityEngine;
 
@@ -40,52 +43,69 @@ namespace Ibit.Plataform.Manager.Spawn
         private int airObstaclesHit;
         private int waterTargetsHit;
         private int waterObstaclesHit;
+        private int airTargetsMiss;
+        private int airObstaclesMiss;
+        private int waterTargetsMiss;
+        private int waterObstaclesMiss;
 
         public event Action<float, float> OnUpdatedPerformanceTarget;
         public event Action<float, float> OnUpdatedPerformanceObstacle;
+        public event Action<string, int> OnTargetHitThreshold;
+        public event Action<string, int> OnTargetMissThreshold;
+        public event Action<string, int> OnObstacleMissThreshold;
+        public event Action<string, int> OnObstacleHitThreshold;
+        
 
         private void PerformanceOnPlayerHit(GameObject hit)
         {
             switch (hit.tag)
             {
                 case "AirTarget":
-                    airTargetsHit++;
                     TargetsInsSucceeded++;
+                    airTargetsHit++;
                     if (airTargetsHit >= StageModel.Loaded.HeightUpThreshold)
                     {
-                        IncrementInsHeight();
+                        OnTargetHitThreshold?.Invoke(hit.tag, airTargetsHit);
+                        //IncrementInsHeight();
                         airTargetsHit = 0;
                     }
+                    airTargetsMiss = 0;
                     break;
 
                 case "WaterTarget":
-                    waterTargetsHit++;
                     TargetsExpSucceeded++;
+                    waterTargetsHit++;
                     if (waterTargetsHit >= StageModel.Loaded.HeightUpThreshold)
                     {
-                        IncrementExpHeight();
+                        OnTargetHitThreshold?.Invoke(hit.tag, waterTargetsHit);
+                        //IncrementExpHeight();
                         waterTargetsHit = 0;
                     }
+                    waterTargetsMiss = 0;
                     break;
 
                 case "AirObstacle":
-                    airObstaclesHit--;
                     ObstaclesExpFailed++;
+                    airObstaclesHit--;
                     if (airObstaclesHit <= -StageModel.Loaded.SizeDownThreshold)
                     {
-                        DecrementExpSize();
+                        OnObstacleHitThreshold?.Invoke(hit.tag, airObstaclesHit);
+                        //DecrementExpSize();
                         airObstaclesHit = 0;
                     }
+                    airObstaclesMiss = 0;
                     break;
 
                 case "WaterObstacle":
-                    waterObstaclesHit--;
                     ObstaclesInsFailed++;
+                    waterObstaclesHit--;
                     if (waterObstaclesHit <= -StageModel.Loaded.SizeDownThreshold)
                     {
-                        DecrementInsSize();
+                        OnObstacleHitThreshold?.Invoke(hit.tag, waterObstaclesHit);
+                        //DecrementInsSize();
                         waterObstaclesHit = 0;
                     }
+                    waterObstaclesMiss = 0;
                     break;
             }
         }
@@ -95,47 +115,56 @@ namespace Ibit.Plataform.Manager.Spawn
             switch (objectTag)
             {
                 case "AirTarget":
-                    airTargetsHit--;
                     TargetsInsFailed++;
-                    if (airTargetsHit <= -StageModel.Loaded.HeightDownThreshold)
+                    airTargetsMiss--;
+                    if (airTargetsMiss <= -StageModel.Loaded.HeightDownThreshold)
                     {
-                        DecrementInsHeight();
-                        airTargetsHit = 0;
+                        OnTargetMissThreshold?.Invoke(objectTag, airTargetsMiss);
+                        //DecrementInsHeight();
+                        airTargetsMiss = 0;
                     }
+                    airTargetsHit = 0;
                     break;
 
                 case "WaterTarget":
-                    waterTargetsHit--;
                     TargetsExpFailed++;
-                    if (waterTargetsHit <= -StageModel.Loaded.HeightDownThreshold)
+                    waterTargetsMiss--;
+                    if (waterTargetsMiss <= -StageModel.Loaded.HeightDownThreshold)
                     {
-                        DecrementExpHeight();
-                        waterTargetsHit = 0;
+                        OnTargetMissThreshold?.Invoke(objectTag, waterTargetsMiss);
+                        //DecrementExpHeight();
+                        waterTargetsMiss = 0;
                     }
+                    waterTargetsHit = 0;
                     break;
 
                 case "AirObstacle":
-                    airObstaclesHit++;
                     ObstaclesExpSucceeded++;
-                    if (airObstaclesHit >= StageModel.Loaded.SizeUpThreshold)
+                    airObstaclesMiss++;
+                    if (airObstaclesMiss >= StageModel.Loaded.SizeUpThreshold)
                     {
-                        IncrementExpSize();
-                        airObstaclesHit = 0;
+                        OnObstacleMissThreshold?.Invoke(objectTag, airObstaclesMiss);
+                        //IncrementExpSize();
+                        airObstaclesMiss = 0;
                     }
+                    airObstaclesHit = 0;
                     break;
 
                 case "WaterObstacle":
-                    waterObstaclesHit++;
                     ObstaclesInsSucceeded++;
-                    if (waterObstaclesHit >= StageModel.Loaded.SizeUpThreshold)
+                    waterObstaclesMiss++;
+                    if (waterObstaclesMiss >= StageModel.Loaded.SizeUpThreshold)
                     {
-                        IncrementInsSize();
-                        waterObstaclesHit = 0;
-                    }
+                       OnObstacleMissThreshold?.Invoke(objectTag, waterObstaclesMiss);
+                        //IncrementInsSize();
+                        waterObstaclesMiss = 0;
+                    } 
+                    waterObstaclesHit = 0;
                     break;
             }
         }
 
+        // On The Fly Inputs Class
         public void IncrementInsHeight()
         {
             if (StageModel.Loaded.HeightIncrement == 0)
@@ -143,16 +172,20 @@ namespace Ibit.Plataform.Manager.Spawn
 
             insHeightAcc += StageModel.Loaded.HeightIncrement;
             OnUpdatedPerformanceTarget?.Invoke(insHeightAcc, expHeightAcc);
+            insHeightAcc = 0;
+            expHeightAcc = 0;
         }
 
         public void DecrementInsHeight()
         {
             if (StageModel.Loaded.HeightIncrement == 0)
                 return;
-
+            
             insHeightAcc -= StageModel.Loaded.HeightIncrement;
-            insHeightAcc = insHeightAcc < 0f ? 0f : insHeightAcc;
+            //insHeightAcc = insHeightAcc < 0f ? 0f : insHeightAcc;
             OnUpdatedPerformanceTarget?.Invoke(insHeightAcc, expHeightAcc);
+            insHeightAcc = 0;
+            expHeightAcc = 0;
         }
 
         public void IncrementExpHeight()
@@ -162,6 +195,8 @@ namespace Ibit.Plataform.Manager.Spawn
 
             expHeightAcc += StageModel.Loaded.HeightIncrement;
             OnUpdatedPerformanceTarget?.Invoke(insHeightAcc, expHeightAcc);
+            insHeightAcc = 0;
+            expHeightAcc = 0;
         }
 
         public void DecrementExpHeight()
@@ -170,8 +205,10 @@ namespace Ibit.Plataform.Manager.Spawn
                 return;
 
             expHeightAcc -= StageModel.Loaded.HeightIncrement;
-            expHeightAcc = expHeightAcc < 0f ? 0f : expHeightAcc;
+            //expHeightAcc = expHeightAcc < 0f ? 0f : expHeightAcc;
             OnUpdatedPerformanceTarget?.Invoke(insHeightAcc, expHeightAcc);
+            insHeightAcc = 0;
+            expHeightAcc = 0;
         }
 
         public void IncrementInsSize()
@@ -181,6 +218,8 @@ namespace Ibit.Plataform.Manager.Spawn
 
             insSizeAcc += StageModel.Loaded.SizeIncrement;
             OnUpdatedPerformanceObstacle?.Invoke(insSizeAcc, expSizeAcc);
+            insSizeAcc = 0;
+            expSizeAcc = 0;
         }
 
         public void DecrementInsSize()
@@ -189,8 +228,10 @@ namespace Ibit.Plataform.Manager.Spawn
                 return;
 
             insSizeAcc -= StageModel.Loaded.SizeIncrement;
-            insSizeAcc = insSizeAcc < 0f ? 0f : insSizeAcc;
+            //insSizeAcc = insSizeAcc < 0f ? 0f : insSizeAcc;
             OnUpdatedPerformanceObstacle?.Invoke(insSizeAcc, expSizeAcc);
+            insSizeAcc = 0;
+            expSizeAcc = 0;
         }
 
         public void IncrementExpSize()
@@ -200,6 +241,8 @@ namespace Ibit.Plataform.Manager.Spawn
 
             expSizeAcc += StageModel.Loaded.SizeIncrement;
             OnUpdatedPerformanceObstacle?.Invoke(insSizeAcc, expSizeAcc);
+            insSizeAcc = 0;
+            expSizeAcc = 0;
         }
 
         public void DecrementExpSize()
@@ -208,8 +251,10 @@ namespace Ibit.Plataform.Manager.Spawn
                 return;
 
             expSizeAcc -= StageModel.Loaded.SizeIncrement;
-            expSizeAcc = expSizeAcc < 0f ? 0f : expSizeAcc;
+            //expSizeAcc = expSizeAcc < 0f ? 0f : expSizeAcc;
             OnUpdatedPerformanceObstacle?.Invoke(insSizeAcc, expSizeAcc);
+            insSizeAcc = 0;
+            expSizeAcc = 0;
         }
     }
 }

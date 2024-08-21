@@ -18,7 +18,7 @@ namespace Ibit.Core.Data.Manager
         {
             var response = new DataManagerReponse<PacientDto, PacientSendDto>();
             
-            LocalDataManager.Instance.SaveLocalData("Pacient", pacient, Pacient.Loaded.Name);
+            //LocalDataManager.Instance.SaveLocalData("Pacient", pacient, Pacient.Loaded.Name); // BUG
 
             if (!ConfigurationManager.SendRemoteData || string.IsNullOrWhiteSpace(ConfigurationManager.GameApiToken))
                 return response;
@@ -135,6 +135,41 @@ namespace Ibit.Core.Data.Manager
                 };
             }
             return await ApiClient.Instance.GetPacients();
+        }
+
+        public async Task<ApiResponse<List<StageDto>>> GetGameparameter(string IdApi)
+        {
+            if (!await ApiClient.Instance.HasInternetConnection() || !ConfigurationManager.SendRemoteData || string.IsNullOrWhiteSpace(ConfigurationManager.GameApiToken))
+            {
+                return new ApiResponse<List<StageDto>>
+                {
+                    Success = false,
+                    //Data = LocalDataManager.Instance.GetGameparameterLocal()
+                };
+            }
+            return await ApiClient.Instance.GetGameparameter(IdApi);
+        }
+
+        public async Task<DataManagerReponse<StageDto, StageSendDto>> UpdateGameparameter(StageSendDto stage)
+        {
+            var response = new DataManagerReponse<StageDto, StageSendDto>();
+
+            LocalDataManager.Instance.SaveLocalData("Stage", stage, Pacient.Loaded.IdApi);
+
+            if (!ConfigurationManager.SendRemoteData || string.IsNullOrWhiteSpace(ConfigurationManager.GameApiToken))
+                return response;
+
+            var hasInternetConnection = await ApiClient.Instance.HasInternetConnection();
+            if (!hasInternetConnection)
+            {
+                LocalDataManager.Instance.SaveRemoteData("Stage", stage, Pacient.Loaded.IdApi);
+                response.LocalResponse = stage;
+                return response;
+            }
+
+            response.ApiResponse = await ApiClient.Instance.UpdateGameparameter(stage, Pacient.Loaded.IdApi);
+
+            return response;
         }
 
         public async Task<bool> SendRemoteData()

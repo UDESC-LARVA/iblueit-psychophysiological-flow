@@ -18,6 +18,7 @@ namespace Assets._Game.Scripts.Core.Api
 
         private readonly string _baseUrl = ConfigurationManager.ApiEndpoint;
         private const string PacientUrl = "pacients";
+        private const string GameparameterUrl = "gameparameter";
         private const string MinigamesUrl = "minigames";
         private const string PlataformsUrl = "plataforms";
         private const string CalibrationsUrl = "calibrations";
@@ -206,6 +207,62 @@ namespace Assets._Game.Scripts.Core.Api
 
             var stringResponse = response.Content.ReadAsStringAsync().Result;
             var apiResponse = JsonConvert.DeserializeObject<ApiResponse<PacientDto>>(stringResponse);
+
+            return apiResponse;
+        }
+
+        public async Task<ApiResponse<List<StageDto>>> GetGameparameter(string idPacient)
+        {
+            var requestUrl = $"{_baseUrl}/{GameparameterUrl}?pacientId={idPacient}";
+
+            HttpResponseMessage response;
+            try
+            {
+                var request = new HttpRequestMessage(HttpMethod.Get, requestUrl);
+                request.Headers.Add("GameToken", _gameToken);
+                response = await HTTP_CLIENT.SendAsync(request);
+            }
+            catch (HttpRequestException httpRequestException)
+            {
+                Debug.LogWarning($"No internet connection!. Error: {httpRequestException}");
+                return new ApiResponse<List<StageDto>>{Data = new List<StageDto>()};
+            }
+
+            if(!response.IsSuccessStatusCode)
+                return new ApiResponse<List<StageDto>> { Data = new List<StageDto>() };
+
+            var content = await response.Content.ReadAsStringAsync();
+            var apiResponse = JsonConvert.DeserializeObject<ApiResponse<List<StageDto>>>(content);
+            
+            return apiResponse;
+        }
+
+        public async Task<ApiResponse<StageDto>> UpdateGameparameter(StageSendDto stage, string idPacient, string jsonText = null)
+        {
+            var requestUrl = $"{_baseUrl}/{GameparameterUrl}?pacientId={idPacient}";
+
+            var jsonContent = jsonText ?? JsonConvert.SerializeObject(stage);
+            var contentString = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response;
+            try
+            {
+                var request = new HttpRequestMessage(HttpMethod.Post, requestUrl);
+                request.Headers.Add("GameToken", _gameToken);
+                request.Content = contentString;
+                response = await HTTP_CLIENT.SendAsync(request);
+            }
+            catch (HttpRequestException httpRequestException)
+            {
+                Debug.LogWarning($"No internet connection!. Error: {httpRequestException}");
+                return new ApiResponse<StageDto>();
+            }
+
+            if (!response.IsSuccessStatusCode)
+                return new ApiResponse<StageDto>();
+
+            var stringResponse = response.Content.ReadAsStringAsync().Result;
+            var apiResponse = JsonConvert.DeserializeObject<ApiResponse<StageDto>>(stringResponse);
 
             return apiResponse;
         }

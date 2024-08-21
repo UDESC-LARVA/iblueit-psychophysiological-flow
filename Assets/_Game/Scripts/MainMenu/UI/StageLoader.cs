@@ -4,6 +4,8 @@ using Ibit.Plataform.Data;
 using UnityEngine;
 using UnityEngine.UI;
 using Ibit.Core.Serial;
+using Assets._Game.Scripts.Core.Api.Dto;
+using Ibit.Core.Data.Manager;
 
 namespace Ibit.MainMenu.UI
 {
@@ -30,7 +32,7 @@ namespace Ibit.MainMenu.UI
 
         }
 
-        private void OnStageSelected()
+        private async void OnStageSelected()
         {
 
             //Olhando se o Pitaco está conectado
@@ -95,8 +97,28 @@ namespace Ibit.MainMenu.UI
 #endif
 
             StageModel.Loaded = stage;
+            // DeepDDA: Gameparameters
+            MapStageFromDto(FillStageList.stageDto);
             FindObjectOfType<SceneLoader>().LoadScene(1);
-            Debug.Log($"Stage {stage.Id} loaded.");
+            //Debug.Log($"Stage {stage.Id} loaded.");
+        }
+
+        // DeepDDA: Mapeamento dos parâmetros
+        public void MapStageFromDto(StageDto stageDto)
+        {
+            StageModel.Loaded.IdApi = stageDto.Id;
+            StageModel.Loaded.PacientIdApi = stageDto.PacientId;
+            StageModel.Loaded.Id = stageDto.StageId;
+            StageModel.Loaded.Phase = stageDto.Phase;
+            StageModel.Loaded.Level = stageDto.Level;
+            StageModel.Loaded.ObjectSpeedFactor = stageDto.ObjectSpeedFactor;
+            StageModel.Loaded.Loops = stageDto.Loops;
+            StageModel.Loaded.HeightIncrement = stageDto.HeightIncrement;
+            StageModel.Loaded.HeightUpThreshold = stageDto.HeightUpThreshold;
+            StageModel.Loaded.HeightDownThreshold = stageDto.HeightDownThreshold;
+            StageModel.Loaded.SizeIncrement = stageDto.SizeIncrement;
+            StageModel.Loaded.SizeUpThreshold = stageDto.SizeUpThreshold;
+            StageModel.Loaded.SizeDownThreshold = stageDto.SizeDownThreshold;
         }
     }
 }

@@ -17,6 +17,8 @@ namespace Assets._Game.Scripts.Core.Api.Dto
         [JsonProperty("unlockedLevels")] public int UnlockedLevels { get; set; }
         [JsonProperty("accumulatedScore")] public float AccumulatedScore { get; set; }
         [JsonProperty("playSessionsDone")] public int PlaySessionsDone { get; set; }
+        [JsonProperty("currentPerformance")] public float CurrentPerformance { get; set; }
+        [JsonProperty("currentBorgScale")] public int CurrentBorgScale { get; set; }
         [JsonProperty("calibrationPitacoDone")] public bool CalibrationPitacoDone { get; set; }
         [JsonProperty("calibrationManoDone")] public bool CalibrationManoDone { get; set; }
         [JsonProperty("calibrationCintaDone")] public bool CalibrationCintaDone { get; set; }

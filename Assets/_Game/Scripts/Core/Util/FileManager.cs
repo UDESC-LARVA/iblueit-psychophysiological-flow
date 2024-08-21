@@ -14,7 +14,7 @@ namespace Ibit.Core.Util
 
             File.WriteAllText(path, contents, Encoding.UTF8);
 
-            UnityEngine.Debug.LogFormat("File saved: {0}", path);
+            //UnityEngine.Debug.LogFormat("File saved: {0}", path);
         }
 
         public static void WriteAllLines(string path, string[] contents)

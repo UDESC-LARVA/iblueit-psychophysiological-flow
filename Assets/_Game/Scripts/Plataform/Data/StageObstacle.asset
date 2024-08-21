@@ -1,0 +1,93 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdf5dd6c9aea4ad44b5164cb88245ac6, type: 3}
+  m_Name: StageObstacle
+  m_EditorClassIdentifier: 
+  Id: 1
+  IdApi: 6681f9d0775e7b307879cab9
+  PacientIdApi: 64eb91d3a2992f47245557a9
+  Phase: 2
+  Level: 3
+  ObjectSpeedFactor: 2
+  Loops: 2
+  HeightIncrement: 0.7
+  HeightUpThreshold: 0
+  HeightDownThreshold: 0
+  SizeIncrement: 0
+  SizeUpThreshold: 0
+  SizeDownThreshold: 0
+  ObjectModels:
+  - Id: 1
+    Type: 2
+    DifficultyFactor: 0.3
+    PositionYFactor: -1
+    PositionXSpacing: 2.5
+  - Id: 2
+    Type: 2
+    DifficultyFactor: 0.3
+    PositionYFactor: 1
+    PositionXSpacing: 2.5
+  - Id: 3
+    Type: 2
+    DifficultyFactor: 0.3
+    PositionYFactor: -1
+    PositionXSpacing: 2.5
+  - Id: 4
+    Type: 2
+    DifficultyFactor: 0.3
+    PositionYFactor: 1
+    PositionXSpacing: 2.5
+  - Id: 5
+    Type: 2
+    DifficultyFactor: 0.3
+    PositionYFactor: -1
+    PositionXSpacing: 2.5
+  - Id: 6
+    Type: 2
+    DifficultyFactor: 0.3
+    PositionYFactor: 1
+    PositionXSpacing: 2.5
+  - Id: 7
+    Type: 2
+    DifficultyFactor: 0.3
+    PositionYFactor: -1
+    PositionXSpacing: 2.5
+  - Id: 8
+    Type: 2
+    DifficultyFactor: 0.3
+    PositionYFactor: 1
+    PositionXSpacing: 2.5
+  - Id: 9
+    Type: 2
+    DifficultyFactor: 0.3
+    PositionYFactor: -1
+    PositionXSpacing: 2.5
+  - Id: 10
+    Type: 2
+    DifficultyFactor: 0.3
+    PositionYFactor: 1
+    PositionXSpacing: 2.5
+  - Id: 11
+    Type: 2
+    DifficultyFactor: 0.3
+    PositionYFactor: -1
+    PositionXSpacing: 2.5
+  - Id: 12
+    Type: 2
+    DifficultyFactor: 0.3
+    PositionYFactor: 1
+    PositionXSpacing: 2.5
+  - Id: 13
+    Type: 3
+    DifficultyFactor: 0
+    PositionYFactor: 0
+    PositionXSpacing: 1

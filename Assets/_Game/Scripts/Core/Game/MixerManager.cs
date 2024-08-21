@@ -35,11 +35,15 @@ namespace Ibit.Core.Game
             
             if (sco == null)
                 sco = FindObjectOfType<SerialControllerOximetro>();
+        
+            // DeepDDA: evento
+            DeepDDAManager.OnDifficultyAdjustmentSpeed += SpeedAdjustment;
+            CurrentParameters = ParametersDb.parameters;
         }
 
         void Update()
         {
-            CurrentParameters = ParametersDb.parameters;
+            
 
             if (scp.IsConnected || scm.IsConnected || scc.IsConnected) // Só executa caso algum dispositivo de controle esteja conectado
             {
@@ -59,5 +63,30 @@ namespace Ibit.Core.Game
                 // Debug.Log("Passei FissionManager");
             }
         }
+
+        // DeepDDA: Ajuste de Volocidade
+        private void SpeedAdjustment(int adjustSpeed)
+        {
+            if(_spawner != null && _spawner.SpawnedObjects != null)
+            {
+                foreach (var obj in _spawner.SpawnedObjects)
+                {
+                    var moveObject = obj?.GetComponent<MoveObject>();
+                    if(moveObject != null && adjustSpeed < 0)
+                        moveObject.Speed -= 1.00f;
+                    else if(moveObject != null && adjustSpeed > 0)
+                        moveObject.Speed += 1.00f;
+                }
+            }
+            else
+            {
+                Debug.LogError("SpeedAdjustment chamado, mas _spawner é nulo ou SpawnedObjects é nulo.");
+            }
+        }
+        
+        protected void OnDestroy()
+        {
+            DeepDDAManager.OnDifficultyAdjustmentSpeed -= SpeedAdjustment;
+        } 
     }
 }

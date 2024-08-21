@@ -5,19 +5,19 @@ namespace Ibit.Plataform.UI
 {
     public class LifeCounterUI : MonoBehaviour
     {
-        [SerializeField]
-        private Image fillImage;
+        // [SerializeField]
+        // private Image fillImage;
 
-        private float startHP;
-        private Ibit.Plataform.Player plr;
+        // private float startHP;
+        // private Ibit.Plataform.Player plr;
 
-        private void Awake()
-        {
-            plr = FindObjectOfType<Ibit.Plataform.Player>();
-            startHP = plr.HeartPoins;
-            plr.OnObjectHit += UpdateHeartPoints;
-        }
+        // private void Awake()
+        // {
+        //     plr = FindObjectOfType<Ibit.Plataform.Player>();
+        //     startHP = plr.HeartPoints;
+        //     plr.OnObjectHit += UpdateHeartPoints;
+        // }
 
-        private void UpdateHeartPoints(GameObject go) => fillImage.fillAmount = plr.HeartPoins / startHP;
+        // private void UpdateHeartPoints(GameObject go) => fillImage.fillAmount = plr.HeartPoints / startHP;
     }
 }

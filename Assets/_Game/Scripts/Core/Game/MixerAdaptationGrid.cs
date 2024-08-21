@@ -54,7 +54,7 @@ namespace Ibit.Core.Game
             // if (_spawner.SpawnedObjects.Count < 1) // Se não tiver objetos, os testes não são feitos
             //     return;
 
-            //* AvaliationNode Oxímeter
+            //* AvaliationNode Oxímeter - DeepDDA: Monitoramento dos biosinais e feedback (Reward)
             if (sco.IsConnected && Time.time > currenttimeOxi + timeBetweenSamplesOxi) // Executa a quantidade de leituras escolhida pelo usuário no arquivo "_signalTreatment.csv" por minuto.
             {
                 if (signalOxiSPO >= ParametersDb.parameters.MinimumRegularOxygenation && signalOxiSPO < ParametersDb.parameters.MinimumNormalOxygenation) // 85 até 94%    
@@ -70,7 +70,7 @@ namespace Ibit.Core.Game
                             _canvasManager = FindObjectOfType<CanvasManager>();
                         }
                         _canvasManager.PauseGametoShowAlert(); // Pausa jogo
-
+                        AddReward(-1f);
                         SecurityPanelOneExecuted = true;
 
                         // if (_spawner == null){
@@ -97,12 +97,13 @@ namespace Ibit.Core.Game
                                 _canvasManager = FindObjectOfType<CanvasManager>();
                             }
                             _canvasManager.PauseGametoShowAlert(); // Pausa jogo
-
+                            AddReward(-2f);
                             SecurityPanelTwoExecuted = true;
                         }
                     } else {
                         countSPORegular = 0;
                         countSPODanger = 0;
+                        AddReward(0.1f);
 
                         // if (_spawner == null){
                         //     _spawner = FindObjectOfType<Spawner>();
@@ -136,12 +137,28 @@ namespace Ibit.Core.Game
 
         private void DecreaseSpeed()
         {
-            // StageModel.Loaded.ObjectSpeedFactor -= 1.00f;
-            // Debug.Log($"SpeedObjects2: {(StageModel.Loaded.ObjectSpeedFactor)}");
-
-            foreach (var obj in _spawner.SpawnedObjects)
+            if(_spawner != null && _spawner.SpawnedObjects != null)
             {
-                obj.GetComponent<MoveObject>().Speed -= 1.00f;
+                foreach (var obj in _spawner.SpawnedObjects)
+                {
+                    var moveObject = obj?.GetComponent<MoveObject>();
+                    if(moveObject != null)
+                        moveObject.Speed -= 1.00f;
+                }
+            }
+            else
+            {
+                Debug.LogError("DecreaseSpeed chamado, mas _spawner é nulo ou SpawnedObjects é nulo.");
+            }
+        }
+
+        // DeepDDA: Método para adicionar Reward ao agente
+        private void AddReward(float reward)
+        {
+            var agent = FindObjectOfType<DeepDDAAgent>();
+            if (agent != null)
+            {
+                agent.AddReward(reward);
             }
         }
 

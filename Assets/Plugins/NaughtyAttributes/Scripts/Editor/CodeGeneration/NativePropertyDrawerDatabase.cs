@@ -13,6 +13,7 @@ namespace NaughtyAttributes.Editor
         {
             drawersByAttributeType = new Dictionary<Type, NativePropertyDrawer>();
             drawersByAttributeType[typeof(ShowNativePropertyAttribute)] = new ShowNativePropertyNativePropertyDrawer();
+
         }
 
         public static NativePropertyDrawer GetDrawerForAttribute(Type attributeType)
@@ -29,3 +30,4 @@ namespace NaughtyAttributes.Editor
         }
     }
 }
+

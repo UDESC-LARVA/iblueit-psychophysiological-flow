@@ -31,8 +31,19 @@ namespace Ibit.Plataform.Manager.Spawn
             var stgMgr = FindObjectOfType<StageManager>();
             stgMgr.OnStageStart += Spawn;
             stgMgr.OnStageEnd += Clean;
+        }
 
-            FindObjectOfType<Player>().OnObjectHit += PerformanceOnPlayerHit;
+        private void Start()
+        {
+            Player player = FindObjectOfType<Player>();
+            if(player != null)
+            {
+                player.OnObjectHit += PerformanceOnPlayerHit;
+            }
+            else
+            {
+                Debug.LogError("Player não encontrado na cena.");
+            }
         }
 
         [Button("Spawn")]
@@ -74,9 +85,24 @@ namespace Ibit.Plataform.Manager.Spawn
 
         private void UpdateSpeed(ref GameObject obj)
         {
+            if (obj == null)
+            {
+                Debug.LogError("The obj is null.");
+                return;
+            }
+            if (StageModel.Loaded == null)
+            {
+                Debug.LogError("StageModel.Loaded is null");
+                return;
+            }
+            if (ParametersDb.parameters == null)
+            {
+                Debug.LogError("ParametersDb.parameters is null");
+                return;
+            }
             obj.GetComponent<MoveObject>().Speed = (StageModel.Loaded.ObjectSpeedFactor * ParametersDb.parameters.ObjectsSpeedFactor);
 
-            Debug.Log($"SpeedObjects1: {(StageModel.Loaded.ObjectSpeedFactor * ParametersDb.parameters.ObjectsSpeedFactor)}");
+            //Debug.Log($"SpeedObjects1: {(StageModel.Loaded.ObjectSpeedFactor * ParametersDb.parameters.ObjectsSpeedFactor)}");
         }
 
         private void SpawnTutorialArrowAir(ref GameObject obj)

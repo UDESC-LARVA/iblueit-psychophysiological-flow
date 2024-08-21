@@ -38,7 +38,7 @@ namespace Ibit.LeavesGame
         private SerialControllerMano scm;
         private SerialControllerCinta scc;
 
-        private bool timeOver, hasTime;
+        private bool timeOver;
         private Scorer _scorer;
 
         private void Awake()
@@ -55,7 +55,7 @@ namespace Ibit.LeavesGame
             playable = true; //To keep player at state
             timeOver = false;
             toBackup = false; //Use old state value(Player haven't played->default state->continue to next state)
-            hasTime = false;
+            //hasTime = false;
             timer = 1; //Time the player has to play(Flow only)
             countdownTime = 60;
             _roundNumber = 0; //Defines in which round the the player is.

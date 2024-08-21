@@ -1,0 +1,91 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdf5dd6c9aea4ad44b5164cb88245ac6, type: 3}
+  m_Name: StageTargetObstacle
+  m_EditorClassIdentifier: 
+  Id: 3
+  Phase: 3
+  Level: 1
+  ObjectSpeedFactor: 1
+  Loops: 5
+  HeightIncrement: 0
+  HeightUpThreshold: 3
+  HeightDownThreshold: 3
+  SizeIncrement: 0
+  SizeUpThreshold: 3
+  SizeDownThreshold: 3
+  ObjectModels:
+  - Id: 1
+    Type: 2
+    DifficultyFactor: 0.3
+    PositionYFactor: -1
+    PositionXSpacing: 2.5
+  - Id: 2
+    Type: 2
+    DifficultyFactor: 0.3
+    PositionYFactor: 1
+    PositionXSpacing: 2.5
+  - Id: 3
+    Type: 1
+    DifficultyFactor: 0.3
+    PositionYFactor: 1
+    PositionXSpacing: 2.5
+  - Id: 4
+    Type: 1
+    DifficultyFactor: 0.3
+    PositionYFactor: -1
+    PositionXSpacing: 2.5
+  - Id: 5
+    Type: 2
+    DifficultyFactor: 0.3
+    PositionYFactor: -1
+    PositionXSpacing: 2.5
+  - Id: 6
+    Type: 2
+    DifficultyFactor: 0.3
+    PositionYFactor: 1
+    PositionXSpacing: 2.5
+  - Id: 7
+    Type: 1
+    DifficultyFactor: 0.3
+    PositionYFactor: 1
+    PositionXSpacing: 2.5
+  - Id: 8
+    Type: 1
+    DifficultyFactor: 0.3
+    PositionYFactor: -1
+    PositionXSpacing: 2.5
+  - Id: 9
+    Type: 2
+    DifficultyFactor: 0.3
+    PositionYFactor: -1
+    PositionXSpacing: 2.5
+  - Id: 10
+    Type: 2
+    DifficultyFactor: 0.3
+    PositionYFactor: 1
+    PositionXSpacing: 2.5
+  - Id: 11
+    Type: 1
+    DifficultyFactor: 0.3
+    PositionYFactor: 1
+    PositionXSpacing: 2.5
+  - Id: 11
+    Type: 1
+    DifficultyFactor: 0.3
+    PositionYFactor: -1
+    PositionXSpacing: 2.5
+  - Id: 11
+    Type: 3
+    DifficultyFactor: 0
+    PositionYFactor: 0
+    PositionXSpacing: 1

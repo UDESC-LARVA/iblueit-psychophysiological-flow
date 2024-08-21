@@ -18,7 +18,9 @@ namespace Ibit.Core.Util
             flowDataDevice = new FlowDataDevice {DeviceName = GameDevice.Pitaco.GetDescription()};
 
             sb.AppendLine("time;value");
+            //DeepDDA: comentar/descomentar bloco de código para Treinamento do Agente
             FindObjectOfType<SerialControllerPitaco>().OnSerialMessageReceived += OnSerialMessageReceived;
+            //FindObjectOfType<SimulatedInput>().OnsimulatedSerialMessageReceived += OnSerialMessageReceived; 
         }
 
         protected override void Save()

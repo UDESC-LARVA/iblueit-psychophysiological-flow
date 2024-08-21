@@ -13,6 +13,7 @@ namespace NaughtyAttributes.Editor
         {
             groupersByAttributeType = new Dictionary<Type, PropertyGrouper>();
             groupersByAttributeType[typeof(BoxGroupAttribute)] = new BoxGroupPropertyGrouper();
+
         }
 
         public static PropertyGrouper GetGrouperForAttribute(Type attributeType)
@@ -29,3 +30,4 @@ namespace NaughtyAttributes.Editor
         }
     }
 }
+

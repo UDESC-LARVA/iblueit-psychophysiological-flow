@@ -40,13 +40,13 @@ namespace Ibit.Plataform.Manager.Spawn
                 objects[i].transform.Translate(i / distanceFactor, 0f, 0f);
             }
 
-            for (i = 0; i < objects.Length; i++)
-            {
-                if (i < 4)
-                    objects[i].transform.Translate(0f, 0.2f * CameraLimits.Boundary, 0f);
-                else if (i > 10)
-                    objects[i].transform.Translate(0f, 0.15f * -CameraLimits.Boundary, 0f);
-            }
+            // for (i = 0; i < objects.Length; i++)
+            // {
+            //     if (i < 4)
+            //         objects[i].transform.Translate(0f, 0.2f * CameraLimits.Boundary, 0f);
+            //     else if (i > 10)
+            //         objects[i].transform.Translate(0f, 0.15f * -CameraLimits.Boundary, 0f);
+            // }
 
             RelaxTimeSpawned = true;
         }

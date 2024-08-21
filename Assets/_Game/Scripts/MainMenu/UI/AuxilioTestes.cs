@@ -63,8 +63,7 @@ public class AuxilioTestes : MonoBehaviour
 
         } else {
             StartPanel.SetActive(false);
-            PlayerMenu.SetActive(true);
-            
+            PlayerMenu.SetActive(true);   
         }
     }
 }

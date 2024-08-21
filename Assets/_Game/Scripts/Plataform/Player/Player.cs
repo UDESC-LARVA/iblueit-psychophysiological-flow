@@ -6,13 +6,15 @@ namespace Ibit.Plataform
 {
     public partial class Player : MonoBehaviour
     {
-        public int HeartPoins => heartPoints;
+        public int HeartPoints => heartPoints;
 
-        private GameAgent mlGameAgent;
+        //private GameAgent mlGameAgent;
 
         [SerializeField]
         [BoxGroup("Properties")]
-        private int heartPoints = 5;
+        private int heartPoints = 6;
+
+        private SimulatedInput simulatedInput;
 
         private void Awake()
         {
@@ -33,11 +35,13 @@ namespace Ibit.Plataform
 
             sco.OnSerialMessageReceived += PositionOnSerialOximetro;
 
+            //DeepDDA: Ativar bloco de código para Treinamento do Agente
+            //simulatedInput = FindObjectOfType<SimulatedInput>();
         }
 
         private void Start()
         {
-            mlGameAgent = GameAgent.instance;
+            //mlGameAgent = GameAgent.instance;
         }
 
         private void Update()

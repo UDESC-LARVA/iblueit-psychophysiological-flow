@@ -9,6 +9,8 @@ namespace Ibit.Plataform.UI
     {
         [SerializeField]
         private Text value;
+        [SerializeField]
+        private Image fillImage;
 
         private Scorer scorer;
 
@@ -18,6 +20,8 @@ namespace Ibit.Plataform.UI
         {
             value.text = $"{(scorer.Score / scorer.MaxScore * 100f):####}%";
             value.color = scorer.Score >= scorer.MaxScore * GameManager.LevelUnlockScoreThreshold ? Color.blue : Color.red;
+
+            fillImage.fillAmount = scorer.Score / scorer.MaxScore;
         }
     }
 }

@@ -6,10 +6,15 @@ namespace Ibit.Plataform.UI
 {
     public class GameScoreUI : MonoBehaviour
     {
+        [SerializeField]
+        private Text value;
         private Scorer scorer;
 
         private void Awake() => scorer = FindObjectOfType<Scorer>();
 
-        private void Update() => GetComponent<Text>().text = $"{scorer.Score:####}";
+        private void Update() 
+        {
+            value.text = $"{scorer.Score:####}";
+        }
     }
 }

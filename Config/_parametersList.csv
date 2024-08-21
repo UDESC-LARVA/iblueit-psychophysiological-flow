@@ -15,7 +15,7 @@ MCO;Subtracao;C;0;0;0;0;0;;;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  ADAPTACAO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%;;;;;;;;;;
 Combinacao de Dispositivos;"Derrotas p/ Adapt. A 
 (Alt. e Tam.)";Fator de reducao da ALTURA dos Alvos;Fator de reducao do TAMANHO dos Obstaculos;Derrotas p/ Adapt. B (Recalibrar);Distancia adicional entre Objetos;"Fator da velocidade dos objetos de jogo 
-(Alvos e Obstaculos)";Fator de Calculo da Pontuaçcao;Minimo exigido da Cinta Extensora (%);Oxigenacao Normal Minima (%);Oxigenacao Regular Minima (%)
+(Alvos e Obstaculos)";Fator de Calculo da PontuaÔøΩcao;Minimo exigido da Cinta Extensora (%);Oxigenacao Normal Minima (%);Oxigenacao Regular Minima (%)
 P;1;1;1;2;0;1;1;0;0;0
 M;1;1;1;2;0,3;1;2;0;0;0
 C;1;1;1;2;0;1;1;75;0;0

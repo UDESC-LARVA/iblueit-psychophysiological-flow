@@ -165,7 +165,7 @@ namespace Ibit.Core.Serial
                 }
                 catch (Exception e)
                 {
-                    //Debug.LogWarning($"Unable to connect {sp.PortName}:{sp.BaudRate}:PITACO.\n{e.GetType()}: {e.Message}");
+                    Debug.LogWarning($"Unable to connect {sp.PortName}:{sp.BaudRate}:PITACO.\n{e.GetType()}: {e.Message}");
                     sp.Close();
                     sp.Dispose();
                     continue;
@@ -260,7 +260,7 @@ namespace Ibit.Core.Serial
 
             IsConnected = false;
 
-            Debug.Log("Serial disconnected:PITACO");
+
         }
 
         private void OnDestroy() => Disconnect();
@@ -284,6 +284,7 @@ namespace Ibit.Core.Serial
             {
                 IsConnected = true;
                 OnSerialConnected?.Invoke();
+                StartSampling(); // foi inserido para corrigir erro do envio das amostras para o jogo
             }
             else if (string.Equals(message, SERIAL_DEVICE_DISCONNECTED))
             {

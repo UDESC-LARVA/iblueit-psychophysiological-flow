@@ -17,19 +17,14 @@ namespace Ibit.Plataform.UI
         private Text finalResult, motivationText, resultInfo;
 
         [SerializeField]
-        private Button nextStageButton;
-
-        [SerializeField]
-        private Button pauseButton;
-
-        [SerializeField]
-        private Button repeatStageButton;
+        private Button pauseButton, repeatStageButton, nextStageButton;
 
         [SerializeField]
         private Text scoreValue, scoreRatio;
 
         [SerializeField]
         public static int numberFailures; // Número de vezes que o paciente perdeu sequencialmente.
+
 
         private void OnEnable()
         {
@@ -52,7 +47,6 @@ namespace Ibit.Plataform.UI
                 {
                     repeatStageButton.interactable = false;
                 }
-
                 nextStageButton.interactable = false;
                 finalResult.text = "YOU BLEW IT";
                 finalResult.color = Color.red;
@@ -77,12 +71,12 @@ namespace Ibit.Plataform.UI
             pauseButton.interactable = false;
             scoreValue.text = scoreRatio.text = "";
 
-            GameObject.Find("Canvas").transform.Find("HUD").transform.localScale = Vector3.zero;
+            //GameObject.Find("Canvas").transform.Find("HUD").transform.localScale = Vector3.zero;
 
             resultInfo.text =
                 $"• Score: {score:####} / {maxScore:####} ({((score / maxScore) * 100f):####}%)\n" +
                 $"• Fase: {StageModel.Loaded.Phase}\n" +
-                $"• Nível: {StageModel.Loaded.Level}\n" +
+                $"• Nível: {StageModel.Loaded.Level-1}\n" +
                 $"• Jogador: {Pacient.Loaded.Name}";
         }
     }

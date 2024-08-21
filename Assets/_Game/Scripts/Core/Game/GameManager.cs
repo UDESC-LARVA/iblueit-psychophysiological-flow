@@ -12,8 +12,9 @@ namespace Ibit.Core.Game
     {
         private static bool isLoaded;
         public static DateTime GameStart;
-        public static float CapacityMultiplierPlataform { get; private set; } = 0.4f;
-        public static float CapacityMultiplierMinigames { get; private set; } = 0.4f;
+        public static float CapacityMultiplierPlataform { get; private set; } = 0.3f;
+        public static float CapacityMultiplierPlataformMax { get; private set; } = 0.8f;
+        public static float CapacityMultiplierMinigames { get; private set; } = 0.3f;
         public static float LevelUnlockScoreThreshold { get; private set; } = 0.7f;
 
 #if UNITY_EDITOR

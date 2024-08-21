@@ -28,6 +28,8 @@ namespace Ibit.Core.Data.Manager
                 path = $"{GameDataPaths.localDataPath}/Pacients/{pacientName.Replace(" ", "")}/MinigamesData";
             if (type == "CalibrationOverview")
                 path = $"{GameDataPaths.localDataPath}/Pacients/{pacientName.Replace(" ", "")}/CalibrationsData";
+            if (type == "Stage")
+                path = $"{GameDataPaths.localDataPath}/Pacients/{pacientName.Replace(" ", "")}/Stage";
             if (type == "Pacient")
             {
                 path = $"{GameDataPaths.localDataPath}/Pacients/{pacientName.Replace(" ", "")}";

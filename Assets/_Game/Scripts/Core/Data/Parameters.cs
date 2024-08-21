@@ -23,7 +23,7 @@ namespace Ibit.Core.Data
         public int lostXtimes;
         public float AdditionalDistance;
         public float ObjectsSpeedFactor;
-        public float ScoreCalculationFactor;
+        public float ScoreCalculationFactor = 1f;
         public float MinimumExtensionBelt;
         public int MinimumNormalOxygenation;
         public int MinimumRegularOxygenation;
@@ -49,9 +49,9 @@ namespace Ibit.Core.Data
                     decreaseHeight = 1, // // Valor de decremento da ALTURA dos Alvos
                     decreaseSize = 1, // Valor de decremento do TAMANHO dos Obstáculos
                     lostXtimes = 2, // Perdeu X vezes (Recalibrar disp.)
-                    AdditionalDistance = 1, // Distância adicional entre Objetos
-                    ObjectsSpeedFactor = 0, // Fator de cálculo da velocidade de movimento dos objetos de jogo (Alvos e Obstáculos)
-                    ScoreCalculationFactor = 0, // Fator de Cálculo da Pontuação
+                    AdditionalDistance = 0, // Distância adicional entre Objetos
+                    ObjectsSpeedFactor = 1, // Fator de cálculo da velocidade de movimento dos objetos de jogo (Alvos e Obstáculos)
+                    ScoreCalculationFactor = 1, // Fator de Cálculo da Pontuação
                     MinimumExtensionBelt = 0, // Valor mínimo exigido da Cinta de Pressão
                     MinimumNormalOxygenation = 0, // Oxigenação Normal Mínima
                     MinimumRegularOxygenation = 0 // Oxigenação Regular Mínima

@@ -57,17 +57,17 @@ namespace Ibit.MainMenu.UI.Canvas
         {
             //**************ATENÇÃO**************
             //criar paciente NetRunner somente para testes e usuario local.
-            /*
+            ///*
             if (Pacient.Loaded == null){
                 GameObject.Find ("Canvas").transform.Find ("Start Panel").gameObject.SetActive (true);
             }
             else{
                 GameObject.Find ("Canvas").transform.Find ("Player Menu").gameObject.SetActive (true);
             }
-            */
+            //*/
 
             //Para criar o build, desativar de "SceneLoader" a classe "AuxilioTestes".
-            GameObject.Find ("Canvas").transform.Find ("Start Panel").gameObject.SetActive (true);
+            //GameObject.Find ("Canvas").transform.Find ("Start Panel").gameObject.SetActive (true);
         }
 
         private void PlayClick () => SoundManager.Instance.PlaySound ("BtnClickUI");

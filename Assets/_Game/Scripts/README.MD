@@ -2,8 +2,9 @@ A programação do *I Blue It* foi fruto das contribuições de:
 * Renato Hartmann Grimes;
 * Adam Mews dos Santos;
 * Jhonatan Thallisson Cabral Néry;
-* Yuri Andreas May Henrique e 
-* Diogo Mezzalira.
+* Yuri Andreas May Henrique;
+* Diogo Mezzalira e
+* Claudinei Dias.
 
 # Versão 01 - *I Blue It*
 ## Contribuições - Renato
@@ -17,7 +18,7 @@ A programação do *I Blue It* foi fruto das contribuições de:
 - CakeGame
 - LeavesGame
 - WaterGame
-
+- Core
 
 # Versão 02 - *I Blue It Multimodal*
 ## Contribuições - Jhonatan
@@ -40,3 +41,11 @@ A programação do *I Blue It* foi fruto das contribuições de:
 - CakeGame
 - LeavesGame
 - WaterGame
+
+# Versão 05 - *I Blue It DeepDDA*
+## Contribuições - Claudinei
+- Core
+- ML-Agents
+- Redesing Jogo Plataforma e Web Analytics
+
+

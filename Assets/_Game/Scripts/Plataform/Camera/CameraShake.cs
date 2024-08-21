@@ -48,7 +48,7 @@ namespace Ibit.Plataform.Camera
 
         private void ShakeOnHit(GameObject go)
         {
-            if (FindObjectOfType<Player>().HeartPoins == 0)
+            if (FindObjectOfType<Player>().HeartPoints == 0)
                 return;
 
             if (go.tag.Contains("Obstacle"))

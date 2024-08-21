@@ -42,6 +42,7 @@ namespace Ibit.Plataform
 
         public float HRValue; //Variável responsável por mostrar na tela a HR
         public float SPO2Value; //Variável responsável por mostrar na tela a SPO2
+        public float RRValue; //Variável responsável por mostrar na tela a frequência respiratória
         public bool oxiActive = false;
         public float auxValuesOxi;
 
@@ -71,6 +72,7 @@ namespace Ibit.Plataform
             if (msg.Length < 1)
                 return;
 
+            //DeepDDA: comentar este bloco para Treinamento do Agente
             if (Time.time > currenttimePitaco + timeBetweenSamplesPitaco) // Executa a quantidade de leituras escolhida pelo usuário no arquivo "_signalTreatment.csv" por minuto.
             { 
                 sensorValuePitaco = 0f;
@@ -79,7 +81,13 @@ namespace Ibit.Plataform
 
                 currenttimePitaco = Time.time; // currenttimePitaco é atualizado para o tempo atual (Time.time é um contador de segundos que começa quando o jogo é executado)
             }
-            
+
+            //DeepDDA: Ativar bloco de código para Treinamento do Agente
+            // if (simulatedInput != null)
+            // {
+            //     sensorValuePitaco = 0f;
+            //     sensorValuePitaco = simulatedInput.GetSimulatedSensorValue();
+            // }
         }
 
 

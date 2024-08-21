@@ -23,6 +23,8 @@ namespace Ibit.Core.Data
         public int UnlockedLevels;
         public float AccumulatedScore;
         public int PlaySessionsDone;
+        public float CurrentPerformance;
+        public int CurrentBorgScale;
         public bool CalibrationPitacoDone;
         public bool CalibrationManoDone;
         public bool CalibrationCintaDone;
@@ -55,7 +57,7 @@ namespace Ibit.Core.Data
 //**************ATENÇÃO**************
 //criar paciente NetRunner somente para testes e usuario local. 
 //Para criar o build, deve ser comentado "if UNITY_EDITOR" e desativado de "SceneLoader" a classe "AuxilioTestes".
-//#if UNITY_EDITOR
+/*#if UNITY_EDITOR
         static Pacient()
         {
             if (Loaded == null)
@@ -103,7 +105,7 @@ namespace Ibit.Core.Data
                     }
                 };
         }
-//#endif
+#endif*/
 
         public static Pacient MapFromDto(PacientDto pacientDto)
         {
@@ -117,6 +119,8 @@ namespace Ibit.Core.Data
                 Condition = EnumExtensions.GetValueFromDescription<ConditionType>(pacientDto.Condition),
                 Name = pacientDto.Name,
                 PlaySessionsDone = pacientDto.PlaySessionsDone,
+                CurrentPerformance = pacientDto.CurrentPerformance,
+                CurrentBorgScale = pacientDto.CurrentBorgScale,
                 UnlockedLevels = pacientDto.UnlockedLevels,
                 AccumulatedScore = pacientDto.AccumulatedScore,
                 PitacoThreshold = pacientDto.PitacoThreshold,
@@ -200,6 +204,8 @@ namespace Ibit.Core.Data
                 CintaThreshold = Loaded.CintaThreshold,
                 Condition = Loaded.Condition.GetDescription(),
                 PlaySessionsDone = Loaded.PlaySessionsDone,
+                CurrentPerformance = Loaded.CurrentPerformance,
+                CurrentBorgScale = Loaded.CurrentBorgScale,
                 HowToPlayDone = Loaded.HowToPlayDone,
                 Observations = Loaded.Observations,
                 PitacoThreshold = Loaded.PitacoThreshold,

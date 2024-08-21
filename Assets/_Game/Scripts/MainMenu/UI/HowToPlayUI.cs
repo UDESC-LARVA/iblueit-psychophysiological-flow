@@ -1,4 +1,5 @@
 ﻿using Ibit.Core.Data;
+using Ibit.Plataform.Data;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,8 +21,8 @@ namespace Ibit.MainMenu.UI
             }
             else
             {
-                // Unlocked Obstacles Stages
-                if (Pacient.Loaded.UnlockedLevels == 6)
+                // DeepDDA: Tutorial obstacle (refatorar)
+                if (StageModel.Loaded.Phase == 2 && StageModel.Loaded.Level == 1)//(Pacient.Loaded.UnlockedLevels == 6)
                 {
                     imageHolder.sprite = obstacleTutorial;
                     okButton.onClick.AddListener(PacientReady);

@@ -11,11 +11,9 @@ namespace Ibit.Plataform
 {
     public partial class Obstacle : MonoBehaviour
     {
-        [SerializeField] private int heartPoint = 1;
-
-        [SerializeField] private ObjectModel _model;
-
+        [SerializeField] private int heartPoint = 6;
         public int HeartPoint => heartPoint;
+        [SerializeField] private ObjectModel _model;       
         public float Score { get; private set; }
 
         private float gameMultiplier = GameManager.CapacityMultiplierPlataform;
@@ -27,11 +25,12 @@ namespace Ibit.Plataform
             CalculateNewDistance();
             CalculateScore();
             FindObjectOfType<Spawner>().OnUpdatedPerformanceObstacle += OnUpdatedPerformance;
+            FindObjectOfType<DeepDDAManager>().OnUpdatedPerformanceObstacle += OnUpdatedPerformance;
         }
 
         private void OnUpdatedPerformance(float insAcc, float expAcc)
         {
-            CalculateSize(this._model.PositionYFactor > 0 ? expAcc : insAcc);
+            CalculateSizeDeepDDA(this._model.PositionYFactor > 0 ? expAcc : insAcc);
             CalculateNewDistance();
         }
 
@@ -42,15 +41,44 @@ namespace Ibit.Plataform
             tmpScale.x = (this._model.PositionYFactor > 0 ? (Pacient.Loaded.CapacitiesPitaco.ExpFlowDuration * gameMultiplier) : (Pacient.Loaded.CapacitiesPitaco.InsFlowDuration * gameMultiplier)) / 1000f *
                 (1f + performanceFactor) * this._model.DifficultyFactor;
 
-            tmpScale.x = tmpScale.x < 1f ? 1f : tmpScale.x;  // Normal
+            tmpScale.x = tmpScale.x < 1f ? 1f : tmpScale.x;  // Mantem valores do Object Models
             Debug.Log($"Obstáculos - Tamanho antes: {tmpScale.x}");
 
 
             if (ResultScreenUI.numberFailures >= ParametersDb.parameters.lostWtimes)  // Perdeu W vezes
-            {
-                tmpScale.x *= ParametersDb.parameters.decreaseSize; // decreaseSize = Valor de decremento do TAMANHO dos Obstáculos, vindo de _parametersList.csv
+            {   
+                // decreaseSize = Valor de decremento do TAMANHO dos Obstáculos, vindo de _parametersList.csv
+                tmpScale.x *= ParametersDb.parameters.decreaseSize; 
                 Debug.Log($"Obstáculos - Tamanho depois: {tmpScale.x}");
             }
+
+            this.transform.localScale = new Vector3(tmpScale.x, tmpScale.x);
+
+            var spriteOffset = this.transform.localScale.y / 2f;
+
+            this.transform.position = new Vector3(this.transform.position.x, this._model.PositionYFactor > 0 ? spriteOffset : -spriteOffset);
+        }
+
+        private void CalculateSizeDeepDDA(float performanceSize)
+        {
+            var tmpScale = this.transform.localScale;
+            
+            // DeepDDA RF-02.01: se ocorrer (Fi) falhas consecutivas em desviar de obstáculos durante uma sessão.
+            if (StageModel.Loaded.SizeIncrement > 0 && StageModel.Loaded.SizeUpThreshold > 0 && StageModel.Loaded.SizeDownThreshold > 0) 
+            {   
+                if(performanceSize != 0)
+                {
+                    tmpScale.x *= (tmpScale.x + performanceSize);
+                }
+                Debug.Log($"Obstáculos - Tamanho depois: {tmpScale.x}");
+            }
+
+            // if (ResultScreenUI.numberFailures >= ParametersDb.parameters.lostWtimes)  // Perdeu W vezes
+            // {   
+            //     // decreaseSize = Valor de decremento do TAMANHO dos Obstáculos, vindo de _parametersList.csv
+            //     tmpScale.x *= ParametersDb.parameters.decreaseSize; 
+            //     Debug.Log($"Obstáculos - Tamanho depois: {tmpScale.x}");
+            // }
 
             this.transform.localScale = new Vector3(tmpScale.x, tmpScale.x);
 

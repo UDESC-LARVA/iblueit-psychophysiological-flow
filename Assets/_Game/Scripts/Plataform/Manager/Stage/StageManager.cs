@@ -42,19 +42,19 @@ namespace Ibit.Plataform.Manager.Stage
         private SerialControllerOximetro serialControllerOximetro;
 
 
-
+        private bool recalibrated = false;
 
 
         private void Awake()
         {
 
-#if UNITY_EDITOR
-
-            if (StageModel.Loaded == null)
-                StageModel.Loaded = testStage;
-            else
-                testStage = StageModel.Loaded;
-#endif
+// #if UNITY_EDITOR
+// DeepDDA: desativado após alterações .csv
+//             if (StageModel.Loaded == null)
+//                 StageModel.Loaded = testStage;
+//             else
+//                 testStage = StageModel.Loaded;
+// #endif
 
             spawner = FindObjectOfType<Spawner>();
 
@@ -78,7 +78,7 @@ namespace Ibit.Plataform.Manager.Stage
 
 #if !UNITY_EDITOR
 
-        // Caso algum dispositivo de controle seja disconectado.
+        // Caso algum dispositivo de controle seja desconectado.
         serialControllerPitaco.OnSerialDisconnected += PauseOnDisconnect;
         serialControllerMano.OnSerialDisconnected += PauseOnDisconnect;
         serialControllerCinta.OnSerialDisconnected += PauseOnDisconnect;
@@ -103,6 +103,7 @@ namespace Ibit.Plataform.Manager.Stage
 
 
             serialControllerPitaco.StartSamplingDelayed();
+            serialControllerPitaco.StartSampling(); // foi inserido para corrigir erro do envio das amostras
             serialControllerMano.StartSamplingDelayed();
             serialControllerCinta.StartSamplingDelayed();
             serialControllerOximetro.StartSamplingDelayed(); 
@@ -138,7 +139,7 @@ namespace Ibit.Plataform.Manager.Stage
         private void GameOver()
         {
             IsRunning = false;
-            FindObjectOfType<Scorer>().CalculateResult(FindObjectOfType<Player>().HeartPoins < 1);
+            FindObjectOfType<Scorer>().CalculateResult(FindObjectOfType<Player>().HeartPoints < 1);
             
             FindObjectOfType<SerialControllerPitaco>().StopSampling();
             FindObjectOfType<PitacoLogger>().StopLogging();
@@ -162,6 +163,12 @@ namespace Ibit.Plataform.Manager.Stage
 
             Duration += Time.deltaTime;
 
+            if (!recalibrated && Mathf.Round(Duration) == 10f)
+            {
+                FindObjectOfType<SerialControllerPitaco>().Recalibrate();
+                recalibrated = true;
+            }
+                
             if (spawner.ObjectsOnScene < 1)
                 EndStage();
         }

@@ -32,6 +32,24 @@ namespace Ibit.Core.Game
 
             var Player = GameObject.Find("Player");
 
+            if (Player == null)
+            {
+                Debug.LogError("Player GameObject not found.");
+                return;
+            }
+
+            if (ParametersDb.parameters == null)
+            {
+                Debug.LogError("ParametersDb.parameters is null.");
+                return;
+            }
+
+            if (Pacient.Loaded == null)
+            {
+                Debug.LogError("Pacient.Loaded is null.");
+                return;
+            }
+
             // * ------------- NENHUMA FUSÃO (ÚNICO SINAL DE CONTROLE) -------------
             if (ParametersDb.parameters.FusionType.ToLower() == "n")
             {

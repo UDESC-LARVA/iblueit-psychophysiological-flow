@@ -106,8 +106,11 @@ namespace Ibit.WaterGame
         {
             if (msg.Length < 1)
                 return;
-
-            sensorValuePitaco = Parsers.Float(msg);
+            // Ajuste da sensibilidade do sensorValuePitaco [3-6]
+            if(Parsers.Float(msg) < -5 || Parsers.Float(msg) > 5)
+            {
+                sensorValuePitaco = Parsers.Float(msg);
+            }
         }
 
         private void OnMessageReceivedMano(string msg)
