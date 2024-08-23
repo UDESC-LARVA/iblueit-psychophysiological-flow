@@ -30,11 +30,7 @@ Jogos sérios são recursos complementares às modalidades terapêuticas tradici
 - **Instrumento terapêutico tecnológico (Inteligência Artificial)**: O módulo DDA contribui como um instrumento de reabilitação (respiratória). Ao incorporar tecnologias de IA, o jogo oferece uma plataforma que adapta os exercícios às necessidades específicas de cada paciente, proporcionando uma abordagem terapêutica personalizada.
 
 ## 🔧 Instalação
-# Manuais de Construção dos dispositivos:
-
 • [Download do jogo](https://drive.google.com/file/d/1hMCceIuWfxUN4Lo2ZMm1Z0UdCUbbyTv7/view?usp=drive_link) 
-
-- Dúvidas contatar: iblueit.therapy@gmail.com
 
 ## 🚀 Como Jogar
 - Solicitação de cursos: iblueit.therapy@gmail.com
@@ -46,9 +42,7 @@ Expirar -> Desce.
 
 # Manuais de Construção dos dispositivos:
 • [Manual de montagem do PITACO (Arduino Uno)](https://drive.google.com/file/d/1ySXKeuSn3YmyW2DLWHif1NNSO-Nl6EtK/view?usp=sharing) 
-
 • [Manual de montagem do PITACO (Arduino Nano)](https://drive.google.com/file/d/1wr6Y98nJR3gZsatfQ0GP4eBEVyYnXiPZ/view?usp=sharing) 
-
 • [Manual de montagem do MANO-BD (Arduino Uno)](https://drive.google.com/file/d/17r0CipR6f9x6s7APGRfAPqf73Xkfc3CW/view?usp=sharing) 
 
 ### ⚙️ Pré-requisitos
@@ -63,7 +57,7 @@ Expirar -> Desce.
 - [TensorFlow](https://www.tensorflow.org/)
 - [PyTorch](https://pytorch.org/)
 
-### 📌 Histórico de Versões
+## 📌 Histórico de Versões
 
 **Versão 4.0**
 Projeto Multimodal: **[UDESC-LARVA/IBLUEIT](https://github.com/UDESC-LARVA/IBLUEIT)**
@@ -71,4 +65,4 @@ Projeto Multimodal: **[UDESC-LARVA/IBLUEIT](https://github.com/UDESC-LARVA/IBLUE
 • Acesse o site: [I Blue It Health InfoCharts](https://www.iblueit.com.br)
 
 ## Contato
-Informações de contato para os responsáveis pelo projeto: iblueit.therapy@gmail.com
+Informações de contato dos responsáveis pelo projeto: iblueit.therapy@gmail.com
