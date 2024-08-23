@@ -61,5 +61,7 @@ Jogos sérios são recursos complementares às modalidades terapêuticas tradici
 **Versão 4.0**
 Projeto Multimodal: **[UDESC-LARVA/IBLUEIT](https://github.com/UDESC-LARVA/IBLUEIT)**
 
+• Acesse o site: [I Blue It Health InfoCharts](https://www.iblueit.com.br)
+
 ## Contato
 Informações de contato para os responsáveis pelo projeto: iblueit.therapy@gmail.com
